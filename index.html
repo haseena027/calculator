@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enhanced Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    #calculator {
+      width: 300px;
+      background-color: #8bfcc4;
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 5px;
+      margin: 20px auto;
+    }
+    .btn {
+      width: 50px;
+      height: 50px;
+      font-size: 20px;
+      margin: 5px;
+      cursor: pointer;
+      border: none;
+      outline: none;
+      background-color: #ddd;
+      border-radius: 5px;
+    }
+    .btn:hover {
+      background-color: #bbb;
+    }
+    .display {
+      width: 100%;
+      height: 50px;
+      font-size: 24px;
+      margin-bottom: 10px;
+      padding: 5px;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <div id="calculator">
+    <input type="text" id="display" class="display" readonly>
+    <div>
+      <button class="btn" onclick="clearDisplay()">C</button>
+      <button class="btn" onclick="backspace()">←</button>
+      <button class="btn" onclick="addToMemory()">M+</button>
+      <button class="btn" onclick="recallMemory()">MR</button>
+      <button class="btn" onclick="clearMemory()">MC</button>
+    </div>
+    <div>
+      <button class="btn" onclick="appendToDisplay('7')">7</button>
+      <button class="btn" onclick="appendToDisplay('8')">8</button>
+      <button class="btn" onclick="appendToDisplay('9')">9</button>
+      <button class="btn" onclick="appendToDisplay('/')">/</button>
+    </div>
+    <div>
+      <button class="btn" onclick="appendToDisplay('4')">4</button>
+      <button class="btn" onclick="appendToDisplay('5')">5</button>
+      <button class="btn" onclick="appendToDisplay('6')">6</button>
+      <button class="btn" onclick="appendToDisplay('*')">*</button>
+    </div>
+    <div>
+      <button class="btn" onclick="appendToDisplay('1')">1</button>
+      <button class="btn" onclick="appendToDisplay('2')">2</button>
+      <button class="btn" onclick="appendToDisplay('3')">3</button>
+      <button class="btn" onclick="appendToDisplay('-')">-</button>
+    </div>
+    <div>
+      <button class="btn" onclick="appendToDisplay('0')">0</button>
+      <button class="btn" onclick="appendToDisplay('.')">.</button>
+      <button class="btn" onclick="calculate()">=</button>
+      <button class="btn" onclick="appendToDisplay('+')">+</button>
+    </div>
+    <div>
+      <button class="btn" onclick="square()">x^2</button>
+      <button class="btn" onclick="squareRoot()">√x</button>
+      <button class="btn" onclick="factorial()">!</button>
+      <button class="btn" onclick="log()">log</button>
+    </div>
+  </div>
+
+  <script>
+    let memory = 0;
+
+    function appendToDisplay(value) {
+      document.getElementById('display').value += value;
+    }
+
+    function clearDisplay() {
+      document.getElementById('display').value = '';
+    }
+
+    function backspace() {
+      let display = document.getElementById('display');
+      display.value = display.value.slice(0, -1);
+    }
+
+    function addToMemory() {
+      let display = document.getElementById('display').value;
+      if (display !== '') {
+        memory += parseFloat(display);
+      }
+    }
+
+    function recallMemory() {
+      document.getElementById('display').value = memory;
+    }
+
+    function clearMemory() {
+      memory = 0;
+    }
+
+    function calculate() {
+      let result = eval(document.getElementById('display').value);
+      document.getElementById('display').value = result;
+    }
+
+    function square() {
+      let display = document.getElementById('display');
+      let value = parseFloat(display.value);
+      display.value = value * value;
+    }
+
+    function squareRoot() {
+      let display = document.getElementById('display');
+      let value = parseFloat(display.value);
+      display.value = Math.sqrt(value);
+    }
+
+    function factorial() {
+      let display = document.getElementById('display');
+      let value = parseFloat(display.value);
+      let result = 1;
+      for (let i = 2; i <= value; i++) {
+        result *= i;
+      }
+      display.value = result;
+    }
+
+    function log() {
+      let display = document.getElementById('display');
+      let value = parseFloat(display.value);
+      display.value = Math.log10(value);
+    }
+  </script>
+</body>
+</html>
